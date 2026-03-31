@@ -1,60 +1,808 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="mediaQueries.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Shraddha Sadavarte | MERN Stack Developer | Fresher Portfolio</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafb;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --accent: #6366f1;
+      --accent-dark: #4f46e5;
+      --accent-light: #e0e7ff;
+      --border-light: #e5e7eb;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body.dark {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --accent: #818cf8;
+      --accent-dark: #6366f1;
+      --accent-light: #312e81;
+      --border-light: #334155;
+      --card-bg: #1e293b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background 0.25s ease, color 0.2s ease;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--bg-primary);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 2rem;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title span {
+      background: linear-gradient(120deg, var(--accent), #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Hero Section */
+    .hero-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero-badge {
+      background: var(--accent-light);
+      color: var(--accent);
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin: 1rem 0 1.5rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 1.2rem;
+    }
+
+    .btn {
+      padding: 0.7rem 1.6rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--border-light);
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      width: 38px;
+      height: 38px;
+      background: var(--bg-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .hero-image {
+      flex: 0.8;
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar-circle {
+      width: 280px;
+      height: 280px;
+      background: linear-gradient(145deg, var(--accent), #a855f7);
+      border-radius: 58% 42% 65% 35% / 48% 52% 48% 52%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .avatar-circle img {
+      width: 92%;
+      height: 92%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* About section */
+    .about-grid {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1.5;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1.5rem 0;
+    }
+
+    .skill-pill {
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .info-card {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+    }
+
+    .info-card li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .info-card i {
+      color: var(--accent);
+      width: 1.4rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-icon {
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--accent);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+    }
+
+    .tech-badge {
+      background: var(--bg-secondary);
+      padding: 0.2rem 0.7rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid var(--border-light);
+    }
+
+    /* Contact section */
+    .contact-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 1.2rem;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      min-width: 220px;
+      transition: var(--transition);
+    }
+
+    .contact-item i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-item a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    @media (max-width: 800px) {
+      .hero-wrapper {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      .btn-group, .social-icons {
+        justify-content: center;
+      }
+      .hero-tagline {
+        text-align: left;
+      }
+      .container {
+        padding: 0 1.5rem;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 550px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <nav id="desktop-nav">
-        <div class="logo">Shraddha Sadavarte</div>
-        <div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#Contact">Contact</a></li>
-            </ul>
+
+<nav>
+  <div class="logo">Shraddha<span style="color:var(--accent)">.</span>Dev</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> <span>Dark</span></button></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home">
+    <div class="container hero-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">✨ Graduate 2026 | MERN Developer</div>
+        <h1>Hi, I'm <span class="hero-highlight">Shraddha Sadavarte</span></h1>
+        <div class="hero-tagline">Building full-stack web apps with MERN, passionate about clean code and real-world solutions. Fresher but driven, with 5+ hands-on projects.</div>
+        <div class="btn-group">
+          <button class="btn btn-primary" id="downloadCVBtn"><i class="fas fa-download"></i> Resume / CV</button>
+          <a href="#projects" class="btn btn-outline"><i class="fas fa-code"></i> View Projects</a>
         </div>
-    </nav>
-    <nav id="hamburger-nav">
-        <div class="logo">Shraddha Sadavarte</div>
-        <div class="hamburger-menu">
-            <div class="hamburger-icon" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+        <div class="social-icons">
+          <a href="https://github.com/shraddha-sadavarte" id="githubLink" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shraddha-sadavarte-4a239926b/" id="linkedinLink" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:shraddhasadavarte24@gmail.com" id="mailContact" target="_blank"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="avatar-circle">
+          <img src="https://ui-avatars.com/api/?background=6366f1&color=fff&rounded=true&bold=true&size=260&name=Shraddha+S" alt="Shraddha">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title fade-up"><span>About Me</span></h2>
+      <div class="about-grid fade-up">
+        <div class="about-text">
+          <p>I'm a passionate <strong>Full Stack Developer (Fresher)</strong> graduating in 2026, deeply skilled in <strong>MERN stack, Python, Core Java, SQL</strong>, and modern dev tools. I've built 5 real-world projects that showcase my ability to create functional, secure, and user-friendly web applications.</p>
+          <p>My strongest project is a <strong>React Expense Tracker</strong> using only Context API (no Redux) — demonstrating my deep understanding of React state management. Another major project is a <strong>Task Management System (MERN)</strong> with JWT authentication, where users can add, update, delete, and mark tasks as favourites. I love solving problems and turning ideas into working software.</p>
+          <div class="skill-pills">
+            <span class="skill-pill">React.js</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Express.js</span>
+            <span class="skill-pill">MongoDB</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Core Java</span>
+            <span class="skill-pill">Git & GitHub</span>
+            <span class="skill-pill">VS Code</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">JWT Auth</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+          <ul>
+            <li><i class="fas fa-university"></i> B.E. Computer Science | 2023-2026</li>
+            <li><i class="fas fa-chart-line"></i> CGPA: 8.2 / 10</li>
+            <li><i class="fas fa-code"></i> Specialization: Full Stack & Web Dev</li>
+          </ul>
+          <h3 style="margin-top: 1.2rem;"><i class="fas fa-tools"></i> Tools & Workflow</h3>
+          <ul>
+            <li><i class="fab fa-git-alt"></i> Git / GitHub, VS Code, Postman</li>
+            <li><i class="fas fa-database"></i> MongoDB Compass, MySQL Workbench</li>
+            <li><i class="fas fa-cloud"></i> Vercel, Render (deployment)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section (highlighting best two projects) -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title fade-up"><span>My Projects</span> (5+ Real World)</h2>
+      <div class="projects-grid fade-up">
+        <!-- React Expense Tracker (Context API) -->
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-wallet"></i></div>
+          <div class="project-content">
+            <h3>💰 Expense Tracker (React + Context API)</h3>
+            <p>Fully functional expense manager built with React and Context API (no Redux). Users can add/delete transactions, filter by category, and view balance summary — showcasing advanced state management.</p>
+            <div class="tech-badges">
+              <span class="tech-badge">React</span>
+              <span class="tech-badge">Context API</span>
+              <span class="tech-badge">CSS Modules</span>
+              <span class="tech-badge">LocalStorage</span>
             </div>
+          </div>
+        </div>
 
-            <div class="menu-links">
-                <li><a href="#about" onclick="toggleMenu()">About</a></li>
-                <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-                <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        <!-- Task Management System (MERN + JWT) -->
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-tasks"></i></div>
+          <div class="project-content">
+            <h3>✅ Task Manager (MERN + JWT Auth)</h3>
+            <p>Full-stack task management system where users can register/login, create tasks, update status, delete, and mark tasks as favourites. Secure authentication using JWT, MongoDB database, and responsive UI.</p>
+            <div class="tech-badges">
+              <span class="tech-badge">MongoDB</span>
+              <span class="tech-badge">Express</span>
+              <span class="tech-badge">React</span>
+              <span class="tech-badge">Node.js</span>
+              <span class="tech-badge">JWT</span>
+              <span class="tech-badge">Tailwind CSS</span>
             </div>
-        </div>
-    </nav>
-
-    <section id="profile">
-        <div class="section-pic-container">
-            <img src="/images/sh.png" alt="shraddha profile picture">
+          </div>
         </div>
 
-        <div class="section-text">
-            <p class="section-text-p1"> Hello, I'm</p>
-            <h1 class="title">Shraddha Sadavarte</h1>
-            <p class="section-text-p2">FullStack Developer</p>
-            <div class="btn-container">
-                <button class="btn btn-color-2" onclick="window.open('./images/shraddha resume.pdf')">Download CV</button>
-                <button class="btn btn-color-1" onclick="location.href='./#contact'">Contact Info</button>
+        <!-- Additional project 3: Mini Ecomm or backend API -->
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-shopping-cart"></i></div>
+          <div class="project-content">
+            <h3>🛍️ BookStore API (REST + MongoDB)</h3>
+            <p>RESTful API for book management with CRUD operations, user authentication, and pagination. Built with Node.js, Express, MongoDB, and tested using Postman. Integrated with a basic React frontend.</p>
+            <div class="tech-badges">
+              <span class="tech-badge">Node.js</span>
+              <span class="tech-badge">Express</span>
+              <span class="tech-badge">Mongoose</span>
+              <span class="tech-badge">JWT</span>
+              <span class="tech-badge">React</span>
             </div>
+          </div>
         </div>
-    </section>
-    
+      </div>
+    </div>
+  </section>
 
-    <script src="./app.js"></script>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title fade-up"><span>Let's Connect</span></h2>
+      <div class="contact-container fade-up">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <a href="mailto:shraddhasadavarte24@gmail.com">shraddhasadavarte24@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-github"></i>
+          <h3>GitHub</h3>
+          <a href="#" id="contactGithub">github.com/shraddha-sadavarte</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <h3>LinkedIn</h3>
+          <a href="#" id="contactLinkedin">https://www.linkedin.com/in/shraddha-sadavarte-4a239926b/</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Shraddha Sadavarte | Fresher MERN Developer — Built with <i class="fas fa-heart" style="color: var(--accent);"></i> & passion for code</p>
+</footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      body.classList.add('dark');
+      localStorage.setItem('portfolio-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span>Light</span>';
+    } else {
+      body.classList.remove('dark');
+      localStorage.setItem('portfolio-theme', 'light');
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>Dark</span>';
+    }
+  }
+
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  if (savedTheme === 'dark') setTheme('dark');
+  else setTheme('light');
+
+  themeToggle.addEventListener('click', () => {
+    if (body.classList.contains('dark')) setTheme('light');
+    else setTheme('dark');
+  });
+
+  // Scroll Reveal
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // CORRECTED JavaScript - Downloads actual resume file from assets folder
+const downloadBtn = document.getElementById('downloadCVBtn');
+
+downloadBtn.addEventListener('click', () => {
+  // Method 1: Direct download from assets folder (RECOMMENDED)
+  // Place your resume file in: assets/resume.pdf or assets/Shraddha_Sadavarte_Resume.pdf
+  const resumePath = './images/Shraddha_Sadavarte_Resume.pdf'; // Change this to your actual file path
+  
+  // Create an anchor element and trigger download
+  const link = document.createElement('a');
+  link.href = resumePath;
+  link.download = 'Shraddha_Sadavarte_Resume.pdf'; // Custom filename for downloaded file
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+
+// Alternative Method 2: If you want to ensure the file exists or provide fallback
+/*
+downloadBtn.addEventListener('click', async () => {
+  try {
+    const response = await fetch('./assets/resume.pdf');
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Shraddha_Sadavarte_Resume.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      // Fallback: generate text resume if PDF not found
+      generateTextResume();
+    }
+  } catch (error) {
+    console.error('Error downloading resume:', error);
+    generateTextResume();
+  }
+});
+
+function generateTextResume() {
+  const cvContent = `Shraddha Sadavarte - MERN Stack Developer (Fresher)
+------------------------------
+📞 Contact: shraddhasadavarte24@gmail.com | GitHub: github.com/shraddha-sadavarte
+
+🎓 EDUCATION:
+Bachelor of Engineering in Computer Science (2023-2026) | CGPA: 8.2
+
+💻 TECHNICAL SKILLS:
+Frontend: React.js, HTML5, CSS3, Tailwind, Context API
+Backend: Node.js, Express.js, REST APIs, JWT Authentication
+Database: MongoDB, Mongoose, SQL (MySQL)
+Languages: JavaScript, Python, Core Java
+Tools: Git, GitHub, VS Code, Postman, Vercel
+
+🚀 PROJECTS:
+1. React Expense Tracker (Context API)
+2. Task Management System (MERN + JWT)
+3. BookStore API (Node/Express + MongoDB)
+
+🏆 CERTIFICATIONS:
+- Core Java, Python, SQL - Zenser RPG Foundation
+- Web Development - Codsoft Technologies
+
+📌 INTERNSHIPS:
+Web Development Intern (Virtual) - Built responsive dashboards (June 2025 - Aug 2025)
+
+⚡ Open to SDE/Frontend/Backend/Full Stack roles (Fresher/Entry Level)`;
+
+  const blob = new Blob([cvContent], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Shraddha_Sadavarte_Resume.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+*/
+
+  // Social links setup (placeholder but real links can be added)
+  const githubLink = document.getElementById('githubLink');
+  const linkedinLink = document.getElementById('linkedinLink');
+  const mailContact = document.getElementById('mailContact');
+  const contactGithub = document.getElementById('contactGithub');
+  const contactLinkedin = document.getElementById('contactLinkedin');
+
+  const githubUrl = 'https://github.com/shraddha-codes';
+  const linkedinUrl = 'https://www.linkedin.com/in/shraddha-sadavarte/';
+  const mailUrl = 'mailto:shraddha.s@example.com';
+
+  if(githubLink) githubLink.href = githubUrl;
+  if(linkedinLink) linkedinLink.href = linkedinUrl;
+  if(mailContact) mailContact.href = mailUrl;
+  if(contactGithub) contactGithub.href = githubUrl;
+  if(contactLinkedin) contactLinkedin.href = linkedinUrl;
+
+  // smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = this.getAttribute('href');
+      if (target === '#') return;
+      const element = document.querySelector(target);
+      if (element) {
+        e.preventDefault();
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // add visible class for any initially visible items on load
+  window.addEventListener('load', () => {
+    fadeElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        el.classList.add('visible');
+      }
+    });
+  });
+</script>
 </body>
 </html>
